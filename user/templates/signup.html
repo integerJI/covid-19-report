@@ -1,0 +1,34 @@
+<form method="POST" action="{% url 'signup'%}" enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="form-label-group">
+        <input type="text" name="user-username" class="form-control" placeholder="Login Id" maxlength="15">
+        <small class="text-muted">15자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.</small>
+    </div>
+    <br>
+    <div class="form-label-group">
+        <input type="password" name="user-password1" class="form-control" placeholder="Password">
+        <small class="text-muted">비밀번호는 최소 8자 이상이어야 합니다.</small>
+    </div>
+    <br>
+    <div class="form-label-group">
+        <input type="password" name="user-password2" class="form-control" placeholder="Confirm Password">
+        <small class="text-muted">비밀번호는 전부 숫자로 할 수 없습니다.</small>
+    </div>
+    <br>
+    <div class="form-label-group">
+        <textarea class="form-control" id="id_profile-intro" rows="3" name="profile-intro" placeholder="About Me"
+            maxlength="40"></textarea>
+        <small class="text-muted">40자 이하 문자만 가능합니다.</small>
+    </div>
+    <br>
+    <div class="form-label-group">
+        <input type="file" name="profile-profile_image" class="form-control-file" accept="image/*">
+        <small class="text-muted">권장 크기 : 250 * 250</small>
+    </div>
+    <br>
+    <button type="submit" class="form-control">Sign Up</button>
+</form>
+<hr>
+<a href="{% url 'signin' %}">
+    <button type="submit" class="form-control">Go back</button>
+</a>

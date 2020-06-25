@@ -1,0 +1,21 @@
+<div class="cantrion">
+    <div class="row justify-content-center">
+        <div class="col-md-4 order-md-1">
+            <img class="img-fluid rounded-circle" width="250" height="250"
+                src="{% if profile_pic %} {{profile_pic}} {% else %} /static/default.jpg {% endif %}"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+        </div>
+        <div class="col-md-2 order-md-2 mb-4">
+            <br>
+            <h3 class="mb-0">{{ id }}</h3>
+            {% if intro %}
+            <p class="card-text mb-auto">{{ intro | linebreaksbr}}</p>
+            {% else %}
+            {% endif %}
+            <br>
+            <a href="{% url 'profile_update' %}">Profile Update</a>
+            <a href="{% url 'index' %}">index</a>
+        </div>
+    </div>
+
+</div>
