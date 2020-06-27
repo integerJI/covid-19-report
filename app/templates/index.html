@@ -6,7 +6,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
 </head>
 <body>
 <h1>메인페이지</h1>
@@ -14,8 +15,9 @@
 <br>
 <br>
 <input type="text" id ="input_report" name="input_report"></textarea>
-<input type="submit" id="btn-save" name="btn-save" value="입력하기">
+<input type="button" id="btn-save" onclick="button_click();" value="입력하기" />
 
+<br>
 {% for report in report.all %}
 <a>{{ report.input_date | date:"Y-m-d h시 i분 s초" }}</a>
 <a>{{ report.input_report }}</a>
@@ -27,24 +29,17 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{apiKey}}"></script>
 
 <script>
-
-function buttonEvt(){
-
-    $("#btn-save").click(function(){
-
-        var input_report = $("#input_report").val();
-        console.log(input_report);
+    
+    function button_click() {
+        var input_report = document.getElementById("input_report").value;
 
         $.ajax({
             type: "POST",
-            url: "{% url 'index' %}",
+            url: "{% url 'report' %}",
             data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report },
             dataType: "json"
         });
-        
-    });
-}
-
+    }
 
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

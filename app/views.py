@@ -9,6 +9,8 @@ try:
 except ImportError:
     import json
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 import os, json
 
@@ -31,14 +33,15 @@ def index(request):
 
     API_KET = get_secret("API_KET")
 
+    return render(request, 'index.html', {'report':report, 'apiKey':API_KET})
+
+@login_required
+@require_POST
+def report(request):
     if request.method == "POST":
-        report=Report()
+        report = Report()
         report.input_user = request.user
         report.input_report = request.POST['input_report']
         report.input_date = timezone.datetime.now()
         report.save()
         return HttpResponse(content_type='application/json')
-
-    else:
-        return render(request, 'index.html', {'report':report, 'apiKey':API_KET})
-
