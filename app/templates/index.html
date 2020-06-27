@@ -1,16 +1,32 @@
+<h1>메인페이지</h1>
+<a href="{% url 'signout'%}">Sign Out</a>
+<br>
+<br>
+
 <form method="POST">
     {% csrf_token %}
-    <h4>본문: </h4>
+    <a>경로 입력 : </a>
     <input type="text" name="input_report"></textarea>
-    <br>
-    <br>
-    <input class="btn btn-dark" type="submit" value="수정하기">
+    <input type="submit" value="입력하기">
 </form>
 
-<a href="{% url 'signout'%}">Sign Out</a>
-
 {% for report in report.all %}
-    <h1>{{ report.input_user }}</h1>
-    <p>{{ report.input_report }}</p>
-    <p>{{ report.input_date | date:"Y-m-d h:i:s" }}</p>
+<a>{{ report.input_date | date:"Y-m-d h시 i분 s초" }}</a>
+<a>{{ report.input_report }}</a>
+<br>
 {% endfor %}
+
+
+
+	<div id="map" style="width:500px;height:400px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=키숨겨야함"></script>
+    
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>

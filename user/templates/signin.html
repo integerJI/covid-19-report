@@ -1,3 +1,5 @@
+<h1>로그인</h1>
+
 <form method="POST" action="{% url 'signin'%}">
     {%csrf_token%}
     <div>
@@ -6,8 +8,9 @@
     <br>
     <input type="password" name="password" placeholder="Password">
     <br>
-    <button type="submit">Sign In</button>
+    <br>
+    <button type="submit">로그인</button>
 </form>
 <a href="{% url 'signup' %}">
-    <button type="submit">Sign Up</button>
+    <button type="submit">회원가입</button>
 </a>
