@@ -6,7 +6,7 @@ from .models import Report
 # Create your views here.
 
 def index(request):
-    report = Report.objects.all()
+    report = Report.objects.filter(input_user=request.user)
  
     if request.method == "POST":
         report=Report()
@@ -17,6 +17,5 @@ def index(request):
         return redirect(reverse('index'))
 
     else:
-        return render(request, 'index.html')
+        return render(request, 'index.html', {'report':report})
 
-    return render(request, 'index.html')

@@ -6,3 +6,10 @@
     <br>
     <input class="btn btn-dark" type="submit" value="수정하기">
 </form>
+
+
+{% for report in report.all %}
+    <h1>{{ report.input_user }}</h1>
+    <p>{{ report.input_report }}</p>
+    <p>{{ report.input_date | date:"Y-m-d h:i:s" }}</p>
+{% endfor %}
