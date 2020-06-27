@@ -7,10 +7,12 @@ from .models import Report
 
 def index(request):
     report = Report.objects.all()
-
+ 
     if request.method == "POST":
-        report.body = request.POST['body']
-        report.pub_date = timezone.datetime.now()
+        report=Report()
+        report.input_user = request.user
+        report.input_report = request.POST['input_report']
+        report.input_date = timezone.datetime.now()
         report.save()
         return redirect(reverse('index'))
 
