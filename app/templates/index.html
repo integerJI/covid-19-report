@@ -37,7 +37,16 @@ $("#btn-save").click(function(){
         type: "POST",
         url: "{% url 'report' %}",
         data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report },
-        dataType: "json"
+        dataType: "text",
+        success:function(data){
+            console.log('성공');
+            location.replace("{% url 'index' %}");
+        },
+        error:function(request, status, error){
+            console.log('실패');
+            console.log(request);
+            console.log(error);
+        }
     });
 })
 
