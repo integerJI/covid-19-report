@@ -7,6 +7,9 @@ class Report(models.Model):
     input_user = models.ForeignKey(User, on_delete = models.CASCADE)
     input_report = models.CharField(max_length=200, null = True, default='비어있음' )
     input_date = models.DateTimeField('date published', default=timezone.now)
+    input_lat = models.DecimalField(max_digits=19, decimal_places=15, null = True)
+    input_lon = models.DecimalField(max_digits=19, decimal_places=15, null = True)
+
 
     def __str__(self):
         return '%s - %s - %s' % (self.input_user, self.input_report, self.input_date) 

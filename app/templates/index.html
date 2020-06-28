@@ -30,26 +30,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 
-$("#btn-save").click(function(){
-    var input_report = document.getElementById("input_report").value;
-
-    $.ajax({
-        type: "POST",
-        url: "{% url 'report' %}",
-        data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report },
-        dataType: "text",
-        success:function(data){
-            console.log('성공');
-            location.replace("{% url 'index' %}");
-        },
-        error:function(request, status, error){
-            console.log('실패');
-            console.log(request);
-            console.log(error);
-        }
-    });
-})
-
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -74,8 +54,31 @@ if (navigator.geolocation) {
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
             
-        // console.log(lat);
-        // console.log(lon);
+
+        $("#btn-save").click(function(){
+            var input_report = document.getElementById("input_report").value;
+        
+        console.log(lat);
+        console.log(lon);
+            
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'report' %}",
+                data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report , 'lat': lat , 'lon': lon },
+                dataType: "text",
+                success:function(data){
+                    console.log('성공');
+                    location.replace("{% url 'index' %}");
+                },
+                error:function(request, status, error){
+                    console.log('실패');
+                    console.log(request);
+                    console.log(error);
+                }
+            });
+        })
+
 
       });
     

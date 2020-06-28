@@ -42,6 +42,8 @@ def report(request):
         report = Report()
         report.input_user = request.user
         report.input_report = request.POST['input_report']
+        report.input_lat = request.POST['input_lat']
+        report.input_lon = request.POST['input_lon']
         report.input_date = timezone.datetime.now()
         report.save()
         return HttpResponse(content_type='application/json')
