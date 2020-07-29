@@ -145,6 +145,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'app', 'static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 LOGIN_URL = '/signin/'
 
 LOGIN_REDIRECT_URL = 'index'
