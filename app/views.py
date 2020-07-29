@@ -1,9 +1,8 @@
-# app/view.py
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import Report
 from django.core.exceptions import ImproperlyConfigured
-
+import os, json
 try:
     from django.utils import simplejson as json
 except ImportError:
@@ -11,8 +10,8 @@ except ImportError:
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-
-import os, json
+from datetime import datetime
+from django.utils.dateformat import DateFormat
 
 # Create your views here.
 
@@ -20,7 +19,7 @@ def index(request):
     report = Report.objects.filter(input_user=request.user)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     secret_file = os.path.join(BASE_DIR, 'secrets.json')
-
+    
     with open(secret_file) as f:
         secrets = json.loads(f.read())
 
@@ -50,6 +49,6 @@ def report(request):
             report.input_report = request.POST['input_report']
         report.input_lat = request.POST['lat']
         report.input_lon = request.POST['lon']
-        report.input_date = timezone.datetime.now()
+        report.input_date = DateFormat(datetime.now()).format('YmdHis')
         report.save()
         return HttpResponse(content_type='application/json')
