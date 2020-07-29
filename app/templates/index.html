@@ -81,14 +81,24 @@
 
       <br>
       <p>오늘의 경로</p>
-      {% for report in report.all %}
-      <a>{{ report.input_report }}</a>
-      <a> / </a>
-      <a>위도 : {{ report.input_lat }}</a>
-      <a> / </a>
-      <a>경도 : {{ report.input_lon }}</a>
-      <br>
-      {% endfor %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">위치</th>
+            <th scope="col">위도</th>
+            <th scope="col">경도</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in report.all %}
+          <tr>
+            <td>{{ report.input_report }}</td>
+            <td>{{ report.input_lat }}</td>
+            <td>{{ report.input_lon }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
 
     </main>
