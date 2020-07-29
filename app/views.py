@@ -13,10 +13,9 @@ from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.utils.dateformat import DateFormat
 
-# Create your views here.
-
 def index(request):
-    report = Report.objects.filter(input_user=request.user)
+    today = DateFormat(datetime.now()).format('Ymd')
+    report = Report.objects.filter(input_user=request.user,filter_date=today)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     secret_file = os.path.join(BASE_DIR, 'secrets.json')
     
@@ -35,7 +34,8 @@ def index(request):
     return render(request, 'index.html', {'report':report, 'apiKey':API_KET})
 
 def list(request):
-    return render(request, 'list.html')
+    report = Report.objects.filter(input_user=request.user)
+    return render(request, 'list.html', {'report':report })
 
 @login_required
 @require_POST
@@ -50,5 +50,6 @@ def report(request):
         report.input_lat = request.POST['lat']
         report.input_lon = request.POST['lon']
         report.input_date = DateFormat(datetime.now()).format('YmdHis')
+        report.filter_date = DateFormat(datetime.now()).format('Ymd')
         report.save()
         return HttpResponse(content_type='application/json')

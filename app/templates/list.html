@@ -48,12 +48,27 @@
       </div>
     </header>
     <main role="main" class="inner cover">
-      <h1 class="cover-heading">Cover your page.</h1>
-      <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the
-        text, and add your own fullscreen background photo to make it your own.</p>
-      <p class="lead">
-        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-      </p>
+      <p>모든 경로</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">위치</th>
+            <th scope="col">위도</th>
+            <th scope="col">경도</th>
+            <th scope="col">날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for report in report.all %}
+          <tr>
+            <td>{{ report.input_report }}</td>
+            <td>{{ report.input_lat }}</td>
+            <td>{{ report.input_lon }}</td>
+            <td>{{ report.input_date }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </main>
     <footer class="mastfoot mt-auto">
       <div class="inner">
