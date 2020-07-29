@@ -44,7 +44,10 @@ def report(request):
     if request.method == "POST":
         report = Report()
         report.input_user = request.user
-        report.input_report = request.POST['input_report']
+        if request.POST['input_report'] == '':
+            report.input_report = 'Check'
+        else :
+            report.input_report = request.POST['input_report']
         report.input_lat = request.POST['lat']
         report.input_lon = request.POST['lon']
         report.input_date = timezone.datetime.now()
