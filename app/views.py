@@ -35,6 +35,9 @@ def index(request):
 
     return render(request, 'index.html', {'report':report, 'apiKey':API_KET})
 
+def list(request):
+    return render(request, 'list.html')
+
 @login_required
 @require_POST
 def report(request):
