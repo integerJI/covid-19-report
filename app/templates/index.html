@@ -75,7 +75,7 @@
 
       <form class="form-signin" method="POST" action="{% url 'report'%}">
         {%csrf_token%}
-        <input type="text" id ="input_report" name="input_report">
+        <input type="text" id ="input_report" name="input_report" placeholder="Check">
         <input type="button" id="btn-save" name="btn-save" value="입력하기" />
       </form>
 
@@ -87,20 +87,20 @@
             <th scope="col">위치</th>
             <th scope="col">위도</th>
             <th scope="col">경도</th>
+            <th scope="col">시간</th>
           </tr>
         </thead>
-        <tbody>
-          {% for report in report.all %}
+        <tbody id="reportTable">
+          <!-- {% for report in report.all %}
           <tr>
             <td>{{ report.input_report }}</td>
             <td>{{ report.input_lat }}</td>
             <td>{{ report.input_lon }}</td>
+            <td>{{ report.input_date }}</td>
           </tr>
-          {% endfor %}
+          {% endfor %} -->
         </tbody>
       </table>
-
-
     </main>
     <footer class="mastfoot mt-auto">
       <div class="inner">
@@ -113,6 +113,10 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{apiKey}}"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+
+  var reportTable = $("#reportTable");
+
+  console.log(reportTable);
 
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
