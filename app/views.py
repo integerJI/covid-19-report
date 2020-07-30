@@ -15,7 +15,7 @@ from django.utils.dateformat import DateFormat
 
 def index(request):
     today = DateFormat(datetime.now()).format('Ymd')
-    report = Report.objects.filter(input_user=request.user,filter_date=today)
+    report = Report.objects.filter(input_user=request.user,input_date=today)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     secret_file = os.path.join(BASE_DIR, 'secrets.json')
     
@@ -49,7 +49,7 @@ def report(request):
             report.input_report = request.POST['input_report']
         report.input_lat = request.POST['lat']
         report.input_lon = request.POST['lon']
-        report.input_date = DateFormat(datetime.now()).format('YmdHis')
-        report.filter_date = DateFormat(datetime.now()).format('Ymd')
+        report.input_date = DateFormat(datetime.now()).format('Ymd')
+        report.input_time = DateFormat(datetime.now()).format('His')
         report.save()
         return HttpResponse(content_type='application/json')

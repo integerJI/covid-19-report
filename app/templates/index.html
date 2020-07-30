@@ -91,14 +91,14 @@
           </tr>
         </thead>
         <tbody id="reportTable">
-          <!-- {% for report in report.all %}
+          {% for report in report.all %}
           <tr>
             <td>{{ report.input_report }}</td>
             <td>{{ report.input_lat }}</td>
             <td>{{ report.input_lon }}</td>
             <td>{{ report.input_date }}</td>
           </tr>
-          {% endfor %} -->
+          {% endfor %}
         </tbody>
       </table>
     </main>
@@ -113,19 +113,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{apiKey}}"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-
-  var reportTable = "";
-  $('[id="reportTable"]').html('');
-
-  reportTable = "";
-  reportTable += reportTable + "<tr><td>a</td>"
-  reportTable += reportTable + "<tr><td>a</td>"
-  reportTable += reportTable + "<tr><td>a</td>"
-  reportTable += reportTable + "<tr><td>a</td></tr>"
-  $('[id="reportTable"]').html(reportTable);
-
-
-  console.log(reportTable);
 
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
