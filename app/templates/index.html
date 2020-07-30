@@ -114,7 +114,16 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 
-  var reportTable = $("#reportTable");
+  var reportTable = "";
+  $('[id="reportTable"]').html('');
+
+  reportTable = "";
+  reportTable += reportTable + "<tr><td>a</td>"
+  reportTable += reportTable + "<tr><td>a</td>"
+  reportTable += reportTable + "<tr><td>a</td>"
+  reportTable += reportTable + "<tr><td>a</td></tr>"
+  $('[id="reportTable"]').html(reportTable);
+
 
   console.log(reportTable);
 
