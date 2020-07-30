@@ -34,7 +34,7 @@ def index(request):
     return render(request, 'index.html', {'report':report, 'apiKey':API_KET})
 
 def list(request):
-    report = Report.objects.filter(input_user=request.user)
+    report = Report.objects.filter(input_user=request.user).order_by('-input_date')
     return render(request, 'list.html', {'report':report })
 
 @login_required
