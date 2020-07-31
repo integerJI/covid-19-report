@@ -21,6 +21,7 @@ def index(request):
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
 
     return render(request, 'index.html', {'report':report, 'apiKey':API_KEY})
+    
 
 def list(request):
     report = Report.objects.filter(input_user=request.user).order_by('-input_date')
@@ -42,3 +43,25 @@ def report(request):
         report.input_time = DateFormat(datetime.now()).format('H:i:s')
         report.save()
         return HttpResponse(content_type='application/json')
+
+
+def test(request):
+    today = DateFormat(datetime.now()).format('Y-m-d')
+    report = Report.objects.filter(input_user=request.user,input_date=today)
+
+    reportValues =report.values()
+    reportList = []
+
+    for i in reportValues:
+        reportList.append(i)
+    print(reportList)
+
+    API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
+
+    context = {
+        'report': report, 
+        'reportList': reportList, 
+        'apiKey': API_KEY,
+    }
+
+    return render(request, 'test.html', context=context)

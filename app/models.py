@@ -10,6 +10,3 @@ class Report(models.Model):
     input_time = models.CharField(max_length=20, default=0, null=True, blank=True)
     input_lat = models.DecimalField(max_digits=9, decimal_places=6, null = True)
     input_lon = models.DecimalField(max_digits=9, decimal_places=6, null = True)
-
-    def __str__(self):
-        return '%s - %s - %s' % (self.input_user, self.input_report, self.input_date) 
