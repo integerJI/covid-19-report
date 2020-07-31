@@ -28,6 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
+################ LOCAL ################
 # with open(secret_file) as f:
 #     secrets = json.loads(f.read())
 
@@ -39,7 +40,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #         raise ImproperlyConfigured(error_msg)
 
 # SECRET_KEY = get_secret("SECRET_KEY")
+# API_KEY = get_secret("API_KEY")
 
+################ HEROKU ################
 SECRET_KEY = os.environ.get('SECRET_KEY')
 API_KEY = os.environ.get('API_KEY')
 
