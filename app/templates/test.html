@@ -97,8 +97,12 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 
-  console.log("{{reportList}}")
+  var report = "{{ report }}".replace(/&#39;/g, "\"");
+  console.log(report);
 
+  // for(var i=0; i<reportValues.length; i++) {
+  //   console.log(reportValues[i]);
+  // }
 
 
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
