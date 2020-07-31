@@ -14,6 +14,8 @@ from datetime import datetime
 from django.utils.dateformat import DateFormat
 from django.conf import settings
 
+from django.forms.models import model_to_dict
+
 def index(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
     report = Report.objects.filter(input_user=request.user,input_date=today)
@@ -50,6 +52,9 @@ def test(request):
     report = Report.objects.filter(input_user=request.user,input_date=today)
 
     value = report.values()
+    list_b = list(value)
+
+    print(list_b)
 
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
 
