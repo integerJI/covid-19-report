@@ -49,11 +49,14 @@ def test(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
     report = Report.objects.filter(input_user=request.user,input_date=today)
 
+    value = report.values()
+
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
 
     context = {
         'report': report, 
         'apiKey': API_KEY,
+        'value': value,
     }
 
     return render(request, 'test.html', context=context)
