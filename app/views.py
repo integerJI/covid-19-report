@@ -13,10 +13,8 @@ from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.utils.dateformat import DateFormat
 from django.conf import settings
-from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.core.serializers import serialize
 
+from django.forms.models import model_to_dict
 
 def index(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
@@ -51,27 +49,45 @@ def report(request):
 
 def test(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
-    report = Report.objects.filter(Q(input_user=request.user),Q(input_date=today))
+    report = Report.objects.filter(input_user=request.user,input_date=today)
 
-    # report2 = Report.objects.filter(Q(input_user=request.user),Q(input_date=today))
-    # .values('input_user', 'input_report', 'input_date', 'input_time', 'input_lat', 'input_lon')
-    # serialized_q = serializers.serialize('json', list(report2), fields=('input_user', 'input_report', 'input_date', 'input_time', 'input_lat', 'input_lon'))
+    rows = report.values_list()
 
-    permission_list = Report.objects.all().order_by('-id')
-    permission_serialize= json.loads(serialize('json', permission_list))
-    # return JsonResponse({'data': permission_serialize})
-
-    # rows = json.dumps(report)
-    # print(rows)
-
-    print(permission_serialize)
+    print(rows)
 
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
 
     context = {
         'report': report, 
         'apiKey': API_KEY,
-        'data': permission_serialize,
     }
 
-    return JsonResponse(request, 'test.html', context=context)
+    return render(request, 'test.html', context=context)
+
+
+# def test(request):
+#     today = DateFormat(datetime.now()).format('Y-m-d')
+#     report = Report.objects.filter(Q(input_user=request.user),Q(input_date=today))
+
+#     # report2 = Report.objects.filter(Q(input_user=request.user),Q(input_date=today))
+#     # .values('input_user', 'input_report', 'input_date', 'input_time', 'input_lat', 'input_lon')
+#     # serialized_q = serializers.serialize('json', list(report2), fields=('input_user', 'input_report', 'input_date', 'input_time', 'input_lat', 'input_lon'))
+
+#     permission_list = Report.objects.all().order_by('-id')
+#     permission_serialize= json.loads(serialize('json', permission_list))
+#     # return JsonResponse({'data': permission_serialize})
+
+#     # rows = json.dumps(report)
+#     # print(rows)
+
+#     print(permission_serialize)
+
+#     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
+
+#     context = {
+#         'report': report, 
+#         'apiKey': API_KEY,
+#         'data': permission_serialize,
+#     }
+
+#     return JsonResponse(request, 'test.html', context=context)
