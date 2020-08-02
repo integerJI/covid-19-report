@@ -58,6 +58,9 @@ def test(request):
     }
     return render(request, 'test.html', context=context)
 
+def apiTest(request):
+    return render(request, 'apiTest.html')
+
 def getApi(request):
     report = Report.objects.all()
     report_list = serializers.serialize('json', report)
