@@ -9,6 +9,17 @@
 
 <body>
     <a>안녕하세요</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">위치</th>
+            </tr>
+        </thead>
+        <tbody id="apiTest">
+        </tbody>
+    </table>
+
 </body>
 
 </html>
@@ -20,7 +31,20 @@
         url: "{% url 'getApi' %}",
         dataType: "json",
         success: function (data) {
-            console.log('성공');
+            var apiTest = "";
+            for(var i=0; i<data.length; i++){
+                apiTest += "<tr>"
+                
+                apiTest += "<td>"+data[i]+"</td>"
+                
+                apiTest += "</tr>"
+
+                console.log(data[i]);
+            }
+
+
+
+            $('[id="apiTest"]').html(apiTest);
         },
         error: function (request, status, error) {
             console.log('실패');
