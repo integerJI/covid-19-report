@@ -14,6 +14,9 @@
         <thead>
             <tr>
                 <th scope="col">위치</th>
+                <th scope="col">위치</th>
+                <th scope="col">위치</th>
+                <th scope="col">위치</th>
             </tr>
         </thead>
         <tbody id="apiTest">
@@ -35,11 +38,15 @@
             for(var i=0; i<data.length; i++){
                 apiTest += "<tr>"
                 
-                apiTest += "<td>"+data[i]+"</td>"
+                apiTest += "<td>"+data[i].pk+"</td>"
+                apiTest += "<td>"+data[i].fields.input_lat+"</td>"
+                apiTest += "<td>"+data[i].fields.input_lon+"</td>"
+                apiTest += "<td>"+data[i].fields.input_user+"</td>"
                 
                 apiTest += "</tr>"
 
                 console.log(data[i]);
+
             }
 
 
