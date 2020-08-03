@@ -1,63 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>apiTest</title>
 </head>
-
 <body>
     <a>안녕하세요</a>
-
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">위치</th>
-                <th scope="col">위치</th>
-                <th scope="col">위치</th>
-                <th scope="col">위치</th>
+                <th scope="col">1</th>
+                <th scope="col">2</th>
+                <th scope="col">3</th>
+                <th scope="col">4</th>
             </tr>
         </thead>
         <tbody id="apiTest">
         </tbody>
     </table>
-
 </body>
-
-</html>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-
     $.ajax({
         url: "{% url 'getApi' %}",
         dataType: "json",
         success: function (data) {
             var apiTest = "";
-            for(var i=0; i<data.length; i++){
+            for (var i = 0; i < data.length; i++) {
                 apiTest += "<tr>"
-                
-                apiTest += "<td>"+data[i].pk+"</td>"
-                apiTest += "<td>"+data[i].fields.input_lat+"</td>"
-                apiTest += "<td>"+data[i].fields.input_lon+"</td>"
-                apiTest += "<td>"+data[i].fields.input_user+"</td>"
-                
+                apiTest += "<td>" + data[i].pk + "</td>"
+                apiTest += "<td>" + data[i].fields.input_lat + "</td>"
+                apiTest += "<td>" + data[i].fields.input_lon + "</td>"
+                apiTest += "<td>" + data[i].fields.input_user + "</td>"
                 apiTest += "</tr>"
-
                 console.log(data[i]);
-
             }
-
-
-
             $('[id="apiTest"]').html(apiTest);
         },
         error: function (request, status, error) {
             console.log('실패');
         }
     });
-
 </script>
-
 </html>
