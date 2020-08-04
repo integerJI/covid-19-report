@@ -42,13 +42,14 @@ $.ajax({
         url: "{% url 'getApi' %}",
         dataType: "json",
         success: function (data) {
+            var positions = [];
 
-            var positions = [
-                {
+            for (var i = 0; i < data.length; i++) {
+                positions.push({
                     title: data[i].fields.input_report,
                     latlng: new kakao.maps.LatLng(data[i].fields.input_lat, data[i].fields.input_lon)
-                }
-            ];
+                });
+            }
         },
         error: function (request, status, error) {
             console.log('실패');
