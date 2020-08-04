@@ -66,7 +66,7 @@ def getApi(request):
     report_list = serializers.serialize('json', report)
     return HttpResponse(report_list, content_type="text/json-comment-filtered")
 
-def apiTest(request):
+def mapTest(request):
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
     context = {
         'apiKey': API_KEY,
