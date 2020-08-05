@@ -62,7 +62,8 @@ def apiTest(request):
     return render(request, 'apiTest.html')
 
 def getApi(request):
-    report = Report.objects.all()
+    today = DateFormat(datetime.now()).format('Y-m-d')
+    report = Report.objects.filter(input_user=request.user,input_date=today)
     report_list = serializers.serialize('json', report)
     return HttpResponse(report_list, content_type="text/json-comment-filtered")
 
