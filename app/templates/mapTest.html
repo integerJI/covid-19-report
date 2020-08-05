@@ -21,7 +21,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 var positions = [];
 
-$.ajax({
+    $.ajax({
         url: "{% url 'getApi' %}",
         dataType: "json",
         success: function (data) {
@@ -32,10 +32,12 @@ $.ajax({
                     latlng: new kakao.maps.LatLng(data[i].fields.input_lon, data[i].fields.input_lat)
                 });
             }
+
         },
         error: function (request, status, error) {
             console.log('실패');
-        }
+        },
+        async: false // https://blog.naver.com/1334012/221445076108 08.05 - jsji 비동기화 처리
     });
 
 // 마커 이미지의 이미지 주소입니다
@@ -48,7 +50,7 @@ for (var i = 0; i < positions.length; i ++) {
     
     // 마커 이미지를 생성합니다    
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
+
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
