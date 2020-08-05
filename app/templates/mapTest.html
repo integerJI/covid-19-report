@@ -37,7 +37,7 @@ var positions = [];
         error: function (request, status, error) {
             console.log('실패');
         },
-        async: false // https://blog.naver.com/1334012/221445076108 08.05 - jsji 비동기화 처리
+        async: false
     });
 
 // 마커 이미지의 이미지 주소입니다
@@ -58,6 +58,10 @@ for (var i = 0; i < positions.length; i ++) {
         title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image : markerImage // 마커 이미지 
     });
+    
+
+
+    
 }
 </script>
 </body>
