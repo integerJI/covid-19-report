@@ -45,19 +45,6 @@ def report(request):
         report.save()
         return HttpResponse(content_type='application/json')
 
-
-def test(request):
-    today = DateFormat(datetime.now()).format('Y-m-d')
-    report = Report.objects.filter(input_user=request.user,input_date=today)
-
-    API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
-
-    context = {
-        'report': report, 
-        'apiKey': API_KEY,
-    }
-    return render(request, 'test.html', context=context)
-
 def apiTest(request):
     return render(request, 'apiTest.html')
 
