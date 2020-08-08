@@ -1,8 +1,6 @@
 {% extends 'mainBase.html' %}
 {% load static %}
-
 {% block maincontent %}
-
 <body class="text-center">
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
@@ -21,7 +19,7 @@
 
       <form class="form-signin" method="POST" action="{% url 'report'%}">
         {%csrf_token%}
-        <input type="text" id ="input_report" name="input_report" placeholder="Check">
+        <input type="text" id="input_report" name="input_report" placeholder="Check">
         <input type="button" id="btn-save" name="btn-save" value="입력하기" />
       </form>
 
@@ -52,7 +50,8 @@
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
-        <p class="text-muted font-weight-lighter">&copy; 2020. <a href="https://www.instagram.com/integer_ji/">IntegerJi</a> all rights reserved.</p>
+        <p class="text-muted font-weight-lighter">&copy; 2020. <a
+            href="https://www.instagram.com/integer_ji/">IntegerJi</a> all rights reserved.</p>
       </div>
     </footer>
   </div>
@@ -106,8 +105,8 @@
             console.log(request);
             console.log(error);
           }
-        });
-      })
+        }); // ajax END
+      }) // btn END
 
     });
 
