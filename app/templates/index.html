@@ -88,9 +88,6 @@
       $("#btn-save").click(function () {
         var input_report = document.getElementById("input_report").value;
 
-        console.log(lat);
-        console.log(lon);
-
         $.ajax({
           type: "POST",
           url: "{% url 'report' %}",
@@ -118,8 +115,6 @@
 
     displayMarker(locPosition, message);
   }
-
-  alert('위치를 가져올 수 없습니다. error (02)');
 
   // 지도에 마커와 인포윈도우를 표시하는 함수입니다
   function displayMarker(locPosition, message) {

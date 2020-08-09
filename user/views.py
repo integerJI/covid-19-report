@@ -10,6 +10,7 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.views import generic, View
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def signup(request):
     if request.method == 'POST':
@@ -18,7 +19,14 @@ def signup(request):
                 request.POST['username'], password=request.POST['password1'])
             auth.login(request, user)
             return redirect('signin')
-    return render(request, 'signup.html')
+        else :
+            message = '비밀번호가 다릅니다. 다시 시도해주세요 error (02)'
+            return render(request, 'signup.html', {'message' : message})
+    else :
+        message = '회원가입에 실패하였습니다. 다시 시도해주세요 error (01)'
+        return render(request, 'signup.html', {'message' : message})
+
+    return render(request, 'signup.html', {'message' : message})
 
 class Loginviews(LoginView):
     template_name = 'signin.html'

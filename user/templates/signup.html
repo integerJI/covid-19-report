@@ -1,6 +1,7 @@
 {% extends 'signBase.html' %}
 {% load static %}
 {% block signcontent %}
+
 <body class="text-center">
     <form class="form-signin" method="POST" action="{% url 'signup'%}">
         {%csrf_token%}
@@ -28,15 +29,40 @@
         </div>
         <div class="form-group">
             <label for="inputPassword" class="sr-only">Confirm Password</label>
-            <input type="password" id="inputPassword" name="password2" class="form-control"
+            <input type="password" id="inputPassword2" name="password2" class="form-control"
                 placeholder="Confirm Password" required>
         </div>
         <br>
-        <button class="btn btn-lg btn-secondary btn-block" type="submit">Sign up</button>
+        <input type="button" class="btn btn-lg btn-secondary btn-block" id="btn-save" name="btn-save" value="Sign up" />
+
         <hr>
         <a class="btn btn-lg btn-secondary btn-block" href="{% url 'signin' %}">Back</a>
         <p class="mt-5 mb-3 text-muted font-weight-lighter">&copy; 2020. <a
                 href="https://www.instagram.com/integer_ji/">IntegerJi</a> all rights reserved.</p>
     </form>
 </body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    $("#btn-save").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'signup' %}",
+            data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'username': $('#inputEmail').val(), 'password1': $('#inputPassword').val(), 'password2': $('#inputPassword2').val() },
+            dataType: "text",
+            success: function (data) {
+                location.replace("{% url 'signin' %}");
+                alert(response.message);
+            },
+            error: function (request, status, error) {
+                alert(response.message);
+            }
+        }); // ajax END
+    }) // btn END
+
+</script>
+
 {% endblock %}
