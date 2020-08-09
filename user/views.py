@@ -23,22 +23,27 @@ def signup(request):
 
         if not username:
             message = '아이디를 입력해주세요. error (01)'
+            print('01')
             return render(request, 'signup.html', {'message' : message})
 
         if not password1:
-            message = '비밀번호를 입력해주세요. error (01)'
+            message = '비밀번호를 입력해주세요. error (02)'
+            print('02')
             return render(request, 'signup.html', {'message' : message})
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
-                message = '아이디가 중복됩니다. 다시 시도해주세요. error (02)'
+                message = '아이디가 중복됩니다. 다시 시도해주세요. error (03)'
+                print('03')
                 return render(request, 'signup.html', {'message' : message})
             else:
                 user = User.objects.create_user(username, password=password1)
+                print('04')
                 auth.login(request, user)
                 return redirect('index')
         else:
-            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (02)'
+            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (04)'
+            print('05')
             return render(request, 'signup.html', {'message' : message})
         
     return render(request, 'signup.html')
@@ -79,11 +84,11 @@ def signin(request):
         password = request.POST['password']
         
         if not username:
-            message = '아이디를 입력해주세요. error (01)'
+            message = '아이디를 입력해주세요. error (05)'
             return render(request, 'signin.html', {'message' : message})
 
         if not password:
-            message = '비밀번호를 입력해주세요. error (01)'
+            message = '비밀번호를 입력해주세요. error (06)'
             return render(request, 'signin.html', {'message' : message})
 
         user = authenticate(username = username, password = password)
