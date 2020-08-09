@@ -11,7 +11,9 @@ from django.urls import reverse_lazy
 from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.contrib.auth import login, authenticate
+from django.template import RequestContext
+from django.http import HttpResponse
 
 def signup(request):
     if request.method == 'POST':
@@ -41,12 +43,55 @@ def signup(request):
         
     return render(request, 'signup.html')
 
-class Loginviews(LoginView):
-    template_name = 'signin.html'
-    def form_invalid(self, form):
-        messages.error(self.request, '로그인에 실패하였습니다. Id 혹은 Password를 확인해 주세요.', extra_tags='danger')
-        return super().form_invalid(form)
-signin = Loginviews.as_view()
+# class Loginviews(LoginView):
+#     template_name = 'signin.html'
+#     def form_invalid(self, form):
+#         messages.error(self.request, '로그인에 실패하였습니다. Id 혹은 Password를 확인해 주세요.', extra_tags='danger')
+#         return super().form_invalid(form)
+# signin = Loginviews.as_view()
+
+# def signin(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+
+#         if not username:
+#             message = '아이디를 입력해주세요. error (01)'
+#             return render(request, 'signin.html', {'message' : message})
+
+#         if not password:
+#             message = '비밀번호를 입력해주세요. error (01)'
+#             return render(request, 'signin.html', {'message' : message})
+
+#         if User.objects.filter(username=username).exists():
+#             message = '존재하지 않는 회원입니다. 다시 시도해주세요. error (02)'
+#             return render(request, 'signin.html', {'message' : message})
+#         else:
+#             user = User.objects.create_user(username, password=password)
+#             auth.login(request, user)
+#             return redirect('index')
+#     else:
+#         return render(request, 'signin.html')
+
+def signin(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if not username:
+            message = '아이디를 입력해주세요. error (01)'
+            return render(request, 'signin.html', {'message' : message})
+
+        if not password:
+            message = '비밀번호를 입력해주세요. error (01)'
+            return render(request, 'signin.html', {'message' : message})
+
+        user = authenticate(username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+    else:
+        return render(request, 'signin.html')
 
 class LogoutViews(LogoutView):
     next_page = settings.LOGOUT_REDIRECT_URL
