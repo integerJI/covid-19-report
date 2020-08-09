@@ -12,21 +12,34 @@ from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 def signup(request):
     if request.method == 'POST':
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(
-                request.POST['username'], password=request.POST['password1'])
-            auth.login(request, user)
-            return redirect('signin')
-        else :
-            message = '비밀번호가 다릅니다. 다시 시도해주세요 error (02)'
-            return render(request, 'signup.html', {'message' : message})
-    else :
-        message = '회원가입에 실패하였습니다. 다시 시도해주세요 error (01)'
-        return render(request, 'signup.html', {'message' : message})
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
 
-    return render(request, 'signup.html', {'message' : message})
+        if not username:
+            message = '아이디를 입력해주세요. error (01)'
+            return render(request, 'signup.html', {'message' : message})
+
+        if not password1:
+            message = '비밀번호를 입력해주세요. error (01)'
+            return render(request, 'signup.html', {'message' : message})
+
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                message = '아이디가 중복됩니다. 다시 시도해주세요. error (02)'
+                return render(request, 'signup.html', {'message' : message})
+            else:
+                user = User.objects.create_user(username, password=password1)
+                auth.login(request, user)
+                return redirect('index')
+        else:
+            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (02)'
+            return render(request, 'signup.html', {'message' : message})
+        
+    return render(request, 'signup.html')
 
 class Loginviews(LoginView):
     template_name = 'signin.html'
