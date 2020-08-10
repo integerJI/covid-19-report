@@ -2,7 +2,7 @@
 {% load static %}
 {% block signcontent %}
 <body class="text-center">
-    <form class="form-signin" method="POST" action="{% url 'signup'%}">
+    <form class="form-signin">
         {%csrf_token%}
         <svg width="72" height="72" viewBox="0 0 16 16" class="bi bi-arrow-down-square" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@
                 placeholder="Confirm Password" required>
         </div>
         <br>
-        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="submit">Sign up</button>
+        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="button">Sign up</button>
         <hr>
         <a class="btn btn-lg btn-secondary btn-block" href="{% url 'signin' %}">Back</a>
         <p class="mt-5 mb-3 text-muted font-weight-lighter">&copy; 2020. <a
@@ -46,7 +46,10 @@
     var message = "{{message}}";
 
     $("#btn-click").click(function () {
-        alert(message);
+        
+        console.log($('#inputEmail').val());
+
+
     });
 
 </script>
