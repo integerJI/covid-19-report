@@ -45,7 +45,7 @@
                 placeholder="Confirm Password" required>
         </div>
         <br>
-        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="button">Sign up</button>
+        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="submit">Sign up</button>
         <hr>
         <a class="btn btn-lg btn-secondary btn-block" href="{% url 'signin' %}">Back</a>
         <p class="mt-5 mb-3 text-muted font-weight-lighter">&copy; 2020. <a
@@ -53,4 +53,8 @@
     </form>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $('.alert').alert('close')
+</script>
 {% endblock %}
