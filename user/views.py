@@ -30,18 +30,18 @@ def signup(request):
         print(username,'/',password1,'/',password2)
 
         if not username:
-            message = '아이디를 입력해주세요. error (01)'
+            messages.info(request, '아이디를 입력해주세요. error (01)')
             print('01')
             return render(request, 'signup.html')
 
         if not password1:
-            message = '비밀번호를 입력해주세요. error (02)'
+            messages.info(request, '비밀번호를 입력해주세요. error (02)')
             print('02')
             return render(request, 'signup.html')
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
-                message = '아이디가 중복됩니다. 다시 시도해주세요. error (03)'
+                messages.info(request, '아이디가 중복됩니다. 다시 시도해주세요. error (03)')
                 print('03')
                 return render(request, 'signup.html')
             else:
@@ -50,7 +50,7 @@ def signup(request):
                 auth.login(request, user)
                 return redirect('index')
         else:
-            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (04)'
+            messages.info(request, '비밀번호가 다릅니다. 다시 시도해주세요. error (04)')
             print('05')
             return render(request, 'signup.html')
         
