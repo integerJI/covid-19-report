@@ -41,32 +41,24 @@ def signup(request):
         
     return render(request, 'signup.html')
 
-class Loginviews(LoginView):
-    template_name = 'signin.html'
-    def form_invalid(self, form):
-        messages.error(self.request, '로그인에 실패하였습니다. Id 혹은 Password를 확인해 주세요.', extra_tags='danger')
-        return super().form_invalid(form)
-signin = Loginviews.as_view()
+# class Loginviews(LoginView):
+#     template_name = 'signin.html'
+#     def form_invalid(self, form):
+#         messages.error(self.request, '로그인에 실패하였습니다. Id 혹은 Password를 확인해 주세요.', extra_tags='danger')
+#         return super().form_invalid(form)
+# signin = Loginviews.as_view()
 
-# def signin(request):
-#     if request.method == "POST":
-#         username = request.POST['username']
-#         password = request.POST['password']
-        
-#         if not username:
-#             message = '아이디를 입력해주세요. error (05)'
-#             return render(request, 'signin.html', {'message' : message})
+def signin(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
 
-#         if not password:
-#             message = '비밀번호를 입력해주세요. error (06)'
-#             return render(request, 'signin.html', {'message' : message})
-
-#         user = authenticate(username = username, password = password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('index')
-#     else:
-#         return render(request, 'signin.html')
+        user = authenticate(username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+    else:
+        return render(request, 'signin.html')
 
 class LogoutViews(LogoutView):
     next_page = settings.LOGOUT_REDIRECT_URL
