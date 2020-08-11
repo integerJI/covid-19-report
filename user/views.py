@@ -57,6 +57,9 @@ def signin(request):
         if user is not None:
             login(request, user)
             return redirect('index')
+        else:
+            messages.info(request, '로그인에 실패하였습니다.')
+            return render(request, 'signin.html')
     else:
         return render(request, 'signin.html')
 
