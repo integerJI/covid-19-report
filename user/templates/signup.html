@@ -54,11 +54,12 @@
             type: "POST",
             url: "{% url 'signup' %}",
             data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'username': username, 'password1': password1, 'password2': password2 },
-            dataType: "text",
-            success: function (data) {
+            dataType: "json",
+            success: function (response) {
                 console.log('성공');
                 console.log('{{error}}');
                 // location.replace("{% url 'index' %}");
+                alert(response.message);
             },
             error: function (request, status, error) {
                 console.log('실패');
