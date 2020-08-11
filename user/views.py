@@ -14,48 +14,12 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.template import RequestContext
 from django.http import HttpResponse
-
-# def signup(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password1 = request.POST['password1']
-#         password2 = request.POST['password2']
-
-#         print(username,'/',password1,'/',password2)
-
-#         if not username:
-#             message = '아이디를 입력해주세요. error (01)'
-#             error = '00'
-#             print('01')
-#             return render(request, 'signup.html', {'message' : message,'error':error})
-
-#         if not password1:
-#             message = '비밀번호를 입력해주세요. error (02)'
-#             error = '00'
-#             print('02')
-#             return render(request, 'signup.html', {'message' : message,'error':error})
-
-#         if password1 == password2:
-#             if User.objects.filter(username=username).exists():
-#                 message = '아이디가 중복됩니다. 다시 시도해주세요. error (03)'
-#                 error = '00'
-#                 print('03')
-#                 return render(request, 'signup.html', {'message' : message,'error':error})
-#             else:
-#                 user = User.objects.create_user(username, password=password1)
-#                 print('04')
-#                 auth.login(request, user)
-#                 return redirect('index')
-#         else:
-#             message = '비밀번호가 다릅니다. 다시 시도해주세요. error (04)'
-#             error = '00'
-#             print('05')
-#             return render(request, 'signup.html', {'message' : message,'error':error})
-        
-#     return render(request, 'signup.html')
-
-
-
+try:
+    from django.utils import simplejson as json
+except ImportError:
+    import json
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.http import require_POST
 
 def signup(request):
     if request.method == 'POST':
@@ -63,15 +27,52 @@ def signup(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
-        if password1 == password2:
-            user = User.objects.create_user(username, password=password1)
-            auth.login(request, user)
-            return redirect('index')
-        else:
-            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (01)'
+        print(username,'/',password1,'/',password2)
 
-    context = {'message' : message}
-    return HttpResponse(json.dumps(context), content_type='application/json')
+        if not username:
+            message = '아이디를 입력해주세요. error (01)'
+            print('01')
+            return render(request, 'signup.html')
+
+        if not password1:
+            message = '비밀번호를 입력해주세요. error (02)'
+            print('02')
+            return render(request, 'signup.html')
+
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                message = '아이디가 중복됩니다. 다시 시도해주세요. error (03)'
+                print('03')
+                return render(request, 'signup.html')
+            else:
+                user = User.objects.create_user(username, password=password1)
+                print('04')
+                auth.login(request, user)
+                return redirect('index')
+        else:
+            message = '비밀번호가 다릅니다. 다시 시도해주세요. error (04)'
+            print('05')
+            return render(request, 'signup.html')
+        
+    return render(request, 'signup.html')
+
+
+
+
+# def signup(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password1 = request.POST['password1']
+#         password2 = request.POST['password2']
+
+#         if password1 == password2:
+#             user = User.objects.create_user(username, password=password1)
+#             auth.login(request, user)
+#         else:
+#             message = '비밀번호가 다릅니다. 다시 시도해주세요. error (01)'
+
+#         context = {'message' : message}
+#         return HttpResponse(json.dumps(context), content_type='application/json')
 
 class Loginviews(LoginView):
     template_name = 'signin.html'
