@@ -29,24 +29,17 @@ def signup(request):
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
-                messages.info(request, '아이디가 중복됩니다.')
+                messages.info(request, '이미 존재하는 회원입니다.')
                 return render(request, 'signup.html')
             else:
                 user = User.objects.create_user(username, password=password1)
                 auth.login(request, user)
                 return redirect('index')
         else:
-            messages.info(request, '비밀번호가 다릅니다.')
+            messages.info(request, '비밀번호가 일치하지 않습니다.')
             return render(request, 'signup.html')
         
     return render(request, 'signup.html')
-
-# class Loginviews(LoginView):
-#     template_name = 'signin.html'
-#     def form_invalid(self, form):
-#         messages.error(self.request, '로그인에 실패하였습니다. Id 혹은 Password를 확인해 주세요.', extra_tags='danger')
-#         return super().form_invalid(form)
-# signin = Loginviews.as_view()
 
 def signin(request):
     if request.method == "POST":
@@ -54,11 +47,16 @@ def signin(request):
         password = request.POST['password']
 
         user = authenticate(username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('index')
+
+        if User.objects.filter(username=username).exists():
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+            else:
+                messages.info(request, '비밀번호를 다시 입력해주세요.')
+                return render(request, 'signin.html')
         else:
-            messages.info(request, '로그인에 실패하였습니다.')
+            messages.info(request, '존재하지 않는 회원입니다.')
             return render(request, 'signin.html')
     else:
         return render(request, 'signin.html')
