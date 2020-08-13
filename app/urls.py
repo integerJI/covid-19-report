@@ -10,4 +10,5 @@ urlpatterns = [
     path('getApi/', views.getApi, name='getApi'),
     path('apiTest/', views.apiTest, name='apiTest'),
     path('mapTest/', views.mapTest, name='mapTest'),
+    path('jsTest/', views.jsTest, name='jsTest'),
 ]

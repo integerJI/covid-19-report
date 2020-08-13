@@ -45,6 +45,9 @@ def report(request):
         report.save()
         return HttpResponse(content_type='application/json')
 
+def jsTest(request):
+    return render(request, 'jsTest.html')
+
 def apiTest(request):
     return render(request, 'apiTest.html')
 
