@@ -5,7 +5,7 @@
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
       <div class="inner">
-        <h3 class="masthead-brand">{{ user.username }}</h3>
+        <h3 class="masthead-brand"></h3>
         <nav class="nav nav-masthead justify-content-center">
           <a class="nav-link active" href="{% url 'index' %}">Home</a>
           <a class="nav-link" href="{% url 'list' %}">List</a>
@@ -24,7 +24,7 @@
       </form>
 
       <br>
-      <h1 class="cover-heading">오늘의 경로</h1>
+      <h1 class="cover-heading"></h1>
       <table class="table">
         <thead>
           <tr>
@@ -71,7 +71,7 @@
 
   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
   if (navigator.geolocation) {
-    
+
     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
     navigator.geolocation.getCurrentPosition(function (position) {
 
@@ -111,7 +111,7 @@
 
     var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
       message = 'geolocation을 사용할수 없어요..'
-      alert('위치를 가져올 수 없습니다. error (01)');
+    alert('위치를 가져올 수 없습니다. error (01)');
 
     displayMarker(locPosition, message);
   }
