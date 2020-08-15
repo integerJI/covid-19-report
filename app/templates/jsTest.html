@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    
-<a href="javascript:doDisplay();">열려라</a>
-<div id="myDiv" style="display: none;">
-    <a>1번</a>
-    <a>2번</a>
-    <a>3번</a>
-    <a>4번</a>
-</div>
 
-<script type="text/javascript">
-    var dDisplay = true;
-    function doDisplay(){
-        var con = document.getElementById("myDiv");
-        if(con.style.display=='block'){
-            con.style.display='none';
-        }else{
-            con.style.display='block';
+<body>
+
+    <a href="javascript:doDisplay();">열려라</a>
+    <div id="myDiv" style="display: none;">
+        <a>1번</a>
+        <a>2번</a>
+        <a>3번</a>
+        <a>4번</a>
+    </div>
+
+    <script type="text/javascript">
+        var dDisplay = true;
+        function doDisplay() {
+            var con = document.getElementById("myDiv");
+            if (con.style.display == 'block') {
+                con.style.display = 'none';
+            } else {
+                con.style.display = 'block';
+            }
         }
-    }
-</script>
+    </script>
 
 </body>
+
 </html>
