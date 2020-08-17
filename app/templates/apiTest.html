@@ -42,9 +42,11 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
     // 마우스로 클릭한 위치입니다 
     var clickPosition = mouseEvent.latLng;
+    console.log(clickPosition+"마우스로 클릭한 위치 1");
 
     // 지도 클릭이벤트가 발생했는데 선을 그리고있는 상태가 아니면
     if (!drawingFlag) {
+        console.log("선을 그리고 있지 않음 2");
 
         // 상태를 true로, 선이 그리고있는 상태로 변경합니다
         drawingFlag = true;
@@ -67,6 +69,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다
         });
+        console.log(clickLine+"클릭한 위치 기준 선을 생성 3");
         
         // 선이 그려지고 있을 때 마우스 움직임에 따라 선이 그려질 위치를 표시할 선을 생성합니다
         moveLine = new kakao.maps.Polyline({
@@ -75,15 +78,17 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             strokeOpacity: 0.5, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다    
         });
-    
+        console.log(moveLine+"선이 그려질 위치를 표시할 선을 생성 4");
+
         // 클릭한 지점에 대한 정보를 지도에 표시합니다
         displayCircleDot(clickPosition, 0);
-
+        console.log(displayCircleDot(clickPosition, 0)+"클릭한 지점에 대한 정보 지도 표시 5");
             
     } else { // 선이 그려지고 있는 상태이면
-
+        console.log("선이 그려지고 있는 상태 6");
         // 그려지고 있는 선의 좌표 배열을 얻어옵니다
         var path = clickLine.getPath();
+        console.log(path+"그려지는 선의 좌표 배열");
 
         // 좌표 배열에 클릭한 위치를 추가합니다
         path.push(clickPosition);
@@ -93,6 +98,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
         var distance = Math.round(clickLine.getLength());
         displayCircleDot(clickPosition, distance);
+        console.log(distance+"계산");
+
     }
 });
     
