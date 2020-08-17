@@ -49,7 +49,12 @@ def jsTest(request):
     return render(request, 'jsTest.html')
 
 def apiTest(request):
-    return render(request, 'apiTest.html')
+    today = DateFormat(datetime.now()).format('Y-m-d')
+    report = Report.objects.filter(input_user=request.user,input_date=today)
+
+    API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
+
+    return render(request, 'apiTest.html', {'report':report, 'apiKey':API_KEY})
 
 def getApi(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
