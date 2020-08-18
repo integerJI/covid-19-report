@@ -88,7 +88,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         console.log("선이 그려지고 있는 상태 6");
         // 그려지고 있는 선의 좌표 배열을 얻어옵니다
         var path = clickLine.getPath();
-        console.log(path+"그려지는 선의 좌표 배열");
+        console.log(path+"그려지는 선의 좌표 배열 7");
 
         // 좌표 배열에 클릭한 위치를 추가합니다
         path.push(clickPosition);
@@ -98,7 +98,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
         var distance = Math.round(clickLine.getLength());
         displayCircleDot(clickPosition, distance);
-        console.log(distance+"계산");
+        console.log(distance+"??? 머지 8");
 
     }
 });
