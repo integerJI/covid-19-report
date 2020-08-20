@@ -26,13 +26,14 @@ def signup(request):
         username = request.POST['username']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
+        email = request.POST['email']
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request, '이미 존재하는 회원입니다.')
                 return render(request, 'signup.html')
             else:
-                user = User.objects.create_user(username, password=password1)
+                user = User.objects.create_user(username, password=password1, email=email)
                 auth.login(request, user)
                 return redirect('index')
         else:
