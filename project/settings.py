@@ -175,7 +175,7 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
 
 # 발신할 메일의 비밀번호
-EMAIL_HOST_PASSWORD = '구글비밀번호'
+# EMAIL_HOST_PASSWORD = '구글비밀번호'
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
 # TLS 보안 방법
