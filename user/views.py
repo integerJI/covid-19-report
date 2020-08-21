@@ -23,14 +23,11 @@ from django.views.decorators.http import require_POST
 from django.core.mail.message import EmailMessage
 from django.utils.decorators import method_decorator
 from urllib.parse import urlparse, urlunparse
-
-from django.conf import settings
 # Avoid shadowing the login() and logout() views below.
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
 )
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import (
     AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
 )
