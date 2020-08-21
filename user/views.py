@@ -18,7 +18,7 @@ try:
     from django.utils import simplejson as json
 except ImportError:
     import json
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.views.decorators.http import require_POST
 from django.core.mail.message import EmailMessage
 from django.utils.decorators import method_decorator
@@ -34,9 +34,7 @@ from django.contrib.auth.forms import (
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
-from django.http import HttpResponseRedirect, QueryDict
 from django.shortcuts import resolve_url
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
