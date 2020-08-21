@@ -71,6 +71,7 @@ class UserPasswordResetView(PasswordResetView):
     template_name = 'password_reset.html' #템플릿을 변경하려면 이와같은 형식으로 입력
 
     def form_valid(self, form):
+        print("form_valid 진입")
         if User.objects.filter(email=self.request.POST.get("email")).exists():
             opts = {
                 'use_https': self.request.is_secure(),
@@ -83,6 +84,8 @@ class UserPasswordResetView(PasswordResetView):
                 'extra_email_context': self.extra_email_context,
             }
             form.save(**opts)
+            print("form_save")
             return super().form_valid(form)
         else:
+            print("메일 전송 실패")
             return render(self.request, 'password_reset_done_fail.html')
