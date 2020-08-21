@@ -69,8 +69,8 @@ signout = LogoutViews.as_view()
 
 class UserPasswordResetView(PasswordResetView):
     template_name = 'password_reset.html' #템플릿을 변경하려면 이와같은 형식으로 입력
-    success_url = reverse_lazy('UserPasswordResetDoneView')
-
+    success_url = reverse_lazy('password_reset_done')
+    
     def form_valid(self, form):
         print("form_valid 진입")
         if User.objects.filter(email=self.request.POST.get("email")).exists():
