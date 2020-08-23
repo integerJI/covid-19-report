@@ -20,6 +20,9 @@ except ImportError:
     import json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_POST
+from django.contrib.auth.forms import (
+    AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
+)
 
 def signup(request):
     if request.method == 'POST':
@@ -69,6 +72,7 @@ signout = LogoutViews.as_view()
 class UserPasswordResetView(PasswordResetView):
     template_name = 'password_reset.html' #템플릿을 변경하려면 이와같은 형식으로 입력
     success_url = reverse_lazy('password_reset_done')
+    form_class = PasswordResetForm
     
     def form_valid(self, form):
         print("form_valid 진입")
@@ -92,3 +96,4 @@ class UserPasswordResetView(PasswordResetView):
 
 class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'password_reset_done.html' #템플릿을 변경하려면 이와같은 형식으로 입력
+
