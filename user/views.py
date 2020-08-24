@@ -36,6 +36,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.utils.translation import gettext_lazy as _
 
+UserModel = get_user_model()
+
 INTERNAL_RESET_URL_TOKEN = 'set-password'
 INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
 
@@ -158,9 +160,9 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
             # urlsafe_base64_decode() decodes to bytestring
             uid = urlsafe_base64_decode(uidb64).decode()
             print(uid,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-            user = User._default_manager.get(pk=uid)
+            user = UserModel._default_manager.get(pk=uid)
             print(user,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist, ValidationError):
             user = None
         return user
 
