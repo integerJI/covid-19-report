@@ -34,6 +34,7 @@ from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
+from django.utils.translation import gettext_lazy as _
 
 INTERNAL_RESET_URL_TOKEN = 'set-password'
 INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
@@ -113,10 +114,15 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'password_reset_confirm.html'
-    token_generator = default_token_generator
     form_class = SetPasswordForm
+    post_reset_login = False
+    post_reset_login_backend = None
     success_url = reverse_lazy('password_reset_complete')
+    template_name = 'password_reset_confirm.html'
+    title = _('Enter new password')
+    token_generator = default_token_generator
+
+
 
     @method_decorator(sensitive_post_parameters())
     @method_decorator(never_cache)
@@ -151,7 +157,9 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
         try:
             # urlsafe_base64_decode() decodes to bytestring
             uid = urlsafe_base64_decode(uidb64).decode()
+            print(uid,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             user = User._default_manager.get(pk=uid)
+            print(user,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         except (TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
             user = None
         return user
@@ -186,4 +194,3 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
         context = super().get_context_data(**kwargs)
         context['login_url'] = resolve_url(settings.LOGIN_URL)
         return context
-
