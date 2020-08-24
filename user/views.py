@@ -37,7 +37,6 @@ from django.views.decorators.cache import never_cache
 from django.utils.translation import gettext_lazy as _
 
 UserModel = get_user_model()
-
 INTERNAL_RESET_URL_TOKEN = 'set-password'
 INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
 
@@ -172,9 +171,8 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
         return kwargs
 
     def form_valid(self, form):
-        del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
         user = form.save()
-        
+        del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
         if self.post_reset_login:
             auth_login(self.request, user, self.post_reset_login_backend)
         return super().form_valid(form)
