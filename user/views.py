@@ -172,8 +172,9 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
         return kwargs
 
     def form_valid(self, form):
+        del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
         user = form.save()
-        self.request.session.pop(INTERNAL_RESET_SESSION_TOKEN, None)
+        
         if self.post_reset_login:
             auth_login(self.request, user, self.post_reset_login_backend)
         return super().form_valid(form)
