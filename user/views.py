@@ -164,7 +164,7 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
             print('get_user try')
             # urlsafe_base64_decode() decodes to bytestring
             # uid = urlsafe_base64_decode(uidb64).decode() 2020-08-25 django 2.0 + 부터는 uid에 decode 할 필요가 없어졌다고 해서 삭제
-            uid = urlsafe_base64_decode(uidb64)
+            uid = urlsafe_base64_decode(uidb64).decode()
             
             print(uid,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             user = UserModel._default_manager.get(pk=uid)
