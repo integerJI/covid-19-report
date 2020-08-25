@@ -123,26 +123,30 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
     title = _('Enter new password')
     token_generator = default_token_generator
 
-
-
     @method_decorator(sensitive_post_parameters())
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
+        print('dispatch 시작')
         assert 'uidb64' in kwargs and 'token' in kwargs
 
         self.validlink = False
         self.user = self.get_user(kwargs['uidb64'])
 
         if self.user is not None:
+            print('self.user is not None 시작')
             token = kwargs['token']
             if token == INTERNAL_RESET_URL_TOKEN:
+                print('token == INTERNAL_RESET_URL_TOKEN 시작')
                 session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
                 if self.token_generator.check_token(self.user, session_token):
+                    print('self.token_generator.check_token(self.user, session_token) 시작')
                     # If the token is valid, display the password reset form.
                     self.validlink = True
                     return super().dispatch(*args, **kwargs)
             else:
+                print('token == INTERNAL_RESET_URL_TOKEN 아닐경우 시작')
                 if self.token_generator.check_token(self.user, token):
+                    print('self.token_generator.check_token(self.user, token) 시작')
                     # Store the token in the session and redirect to the
                     # password reset form at a URL without the token. That
                     # avoids the possibility of leaking the token in the
@@ -152,10 +156,12 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
                     return HttpResponseRedirect(redirect_url)
 
         # Display the "Password reset unsuccessful" page.
+        print('dispatch 끝')
         return self.render_to_response(self.get_context_data())
 
     def get_user(self, uidb64):
         try:
+            print('get_user try')
             # urlsafe_base64_decode() decodes to bytestring
             uid = urlsafe_base64_decode(uidb64).decode()
             print(uid,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -163,25 +169,32 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
             print(user,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist, ValidationError):
             user = None
+            print('user = None')
         return user
 
     def get_form_kwargs(self):
+        print('get_form_kwargs')
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.user
         return kwargs
 
     def form_valid(self, form):
         user = form.save()
+        print('form_valid')
         del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
         if self.post_reset_login:
+            print('self.post_reset_login')
             auth_login(self.request, user, self.post_reset_login_backend)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+        print('get_context_data 시작')
         context = super().get_context_data(**kwargs)
         if self.validlink:
+            print('self.validlink')
             context['validlink'] = True
         else:
+            print('self.validlink 아닐경우')
             context.update({
                 'form': None,
                 'validlink': False,
