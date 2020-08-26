@@ -111,11 +111,10 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'password_reset_done.html' #템플릿을 변경하려면 이와같은 형식으로 입력
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
-    success_url=reverse_lazy('signin')
+    success_url=reverse_lazy('password_reset_complete')
     template_name = 'password_reset_confirm.html'
 
     def form_valid(self, form):
-        messages.info(self.request, '암호 리셋을 완료했습니다.')
         return super().form_valid(form)
 
 # class UserPasswordResetConfirmView(PasswordResetConfirmView):
