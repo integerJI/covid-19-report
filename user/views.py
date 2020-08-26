@@ -91,7 +91,6 @@ class UserPasswordResetView(PasswordResetView):
     form_class = PasswordResetForm
     
     def form_valid(self, form):
-        print("form_valid 진입")
         if User.objects.filter(email=self.request.POST.get("email")).exists():
             opts = {
                 'use_https': self.request.is_secure(),
@@ -104,10 +103,8 @@ class UserPasswordResetView(PasswordResetView):
                 'extra_email_context': self.extra_email_context,
             }
             form.save(**opts)
-            print("form_save")
             return super().form_valid(form)
         else:
-            print("메일 전송 실패")
             return render(self.request, 'password_reset_done_fail.html')
 
 class UserPasswordResetDoneView(PasswordResetDoneView):
