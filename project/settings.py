@@ -172,11 +172,17 @@ EMAIL_PORT = '587'
 
 # 발신할 이메일
 # EMAIL_HOST_USER = '구글아이디@gmail.com'
-EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+################ HEROKU ################
+os.environ.get('EMAIL_HOST_USER')
+################ LOCAL ################
+# EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
 
 # 발신할 메일의 비밀번호
 # EMAIL_HOST_PASSWORD = '구글비밀번호'
-EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+################ HEROKU ################
+os.environ.get('EMAIL_HOST_PASSWORD')
+################ LOCAL ################
+# EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
 # TLS 보안 방법
 EMAIL_USE_TLS = True
