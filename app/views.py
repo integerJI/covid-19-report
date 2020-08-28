@@ -17,7 +17,7 @@ from django.core import serializers
 
 def index(request):
     today = DateFormat(datetime.now()).format('Y-m-d')
-    report = Report.objects.filter(input_user=request.user,input_date=today)
+    report = Report.objects.filter(input_user=request.user,input_date=today).order_by('-id')
 
     API_KEY = getattr(settings, 'API_KEY', 'API_KEY')
 
