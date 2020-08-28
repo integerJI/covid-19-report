@@ -25,7 +25,7 @@ def index(request):
     
 
 def list(request):
-    report = Report.objects.filter(input_user=request.user).order_by('-input_date')
+    report = Report.objects.filter(input_user=request.user).order_by('-input_date','-id')
     return render(request, 'list.html', {'report':report })
 
 @login_required
