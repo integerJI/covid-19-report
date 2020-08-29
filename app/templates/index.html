@@ -9,7 +9,7 @@
 
 
           <!-- api 테스트를 위해 잠시 추가 -->
-          <div class="dropdown">
+          <!-- <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Local Test
             </button>
@@ -18,7 +18,7 @@
               <a class="dropdown-item" href="{% url 'jsTest' %}">jsTest</a>
               <a class="dropdown-item" href="{% url 'mapTest' %}">mapTest</a>
             </div>
-          </div>
+          </div> -->
           <!-- 개발 완료되면 지우기 -->
 
         </h3>
@@ -143,13 +143,9 @@
       // 마커 위치를 클릭한 위치로 옮깁니다
       marker.setPosition(locPosition);
 
-
-
       $("#btn-save").click(function () {
-
         var input_report = document.getElementById("input_report").value;
 
-        console.log(locPosition);
         $.ajax({
           type: "POST",
           url: "{% url 'report' %}",
@@ -165,19 +161,11 @@
             console.log(error);
           }
         }); // ajax END
-
-
+        
       }) // btn END
 
+    }); // addListener END
 
-
-    });
-
-
-
-  }
-
-
-
+  } // displayMarker END
 </script>
 {% endblock %}
