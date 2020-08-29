@@ -41,16 +41,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECRET_KEY = get_secret("SECRET_KEY")
 # API_KEY = get_secret("API_KEY")
+# EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
 ################ HEROKU ################
 SECRET_KEY = os.environ.get('SECRET_KEY')
 API_KEY = os.environ.get('API_KEY')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -96,7 +100,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -106,7 +109,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,7 +128,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -139,7 +140,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -170,25 +170,16 @@ EMAIL_HOST = 'smtp.gmail.com'
 # gmail과의 통신하는 포트
 EMAIL_PORT = '587'
 
+# TLS 보안 방법
+EMAIL_USE_TLS = True
+
 # 발신할 이메일
 # EMAIL_HOST_USER = '구글아이디@gmail.com'
-################ HEROKU ################
-os.environ.get('EMAIL_HOST_USER')
-################ LOCAL ################
 # EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
 
 # 발신할 메일의 비밀번호
 # EMAIL_HOST_PASSWORD = '구글비밀번호'
-################ HEROKU ################
-os.environ.get('EMAIL_HOST_PASSWORD')
-################ LOCAL ################
 # EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 
-# TLS 보안 방법
-EMAIL_USE_TLS = True
-
 # 사이트와 관련한 자동응답을 받을 이메일 주소
-################ HEROKU ################
-os.environ.get('DEFAULT_FROM_EMAIL')
-################ LOCAL ################
-# DEFAULT_FROM_EMAIL = get_secret("DEFAULT_FROM_EMAIL")
+# DEFAULT_FROM_EMAIL = get_secret("EMAIL_HOST_USER")
