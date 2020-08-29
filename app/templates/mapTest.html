@@ -1,6 +1,7 @@
 {% extends 'mainBase.html' %}
 {% load static %}
 {% block maincontent %}
+
 <body class="text-center">
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
@@ -10,7 +11,8 @@
 
           <!-- api 테스트를 위해 잠시 추가 -->
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Local Test
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -100,34 +102,6 @@
       // 마커와 인포윈도우를 표시합니다
       displayMarker(locPosition, message);
 
-
-      $("#btn-save").click(function () {
-
-        console.log(lat+"위도",lon+"경도");
-        console.log(lat+"위도",lon+"경도");
-        
-
-        // var input_report = document.getElementById("input_report").value;
-
-        // $.ajax({
-        //   type: "POST",
-        //   url: "{% url 'report' %}",
-        //   data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report, 'lat': lat, 'lon': lon },
-        //   dataType: "text",
-        //   success: function (data) {
-        //     console.log('성공');
-        //     location.replace("{% url 'index' %}");
-        //   },
-        //   error: function (request, status, error) {
-        //     console.log('실패');
-        //     console.log(request);
-        //     console.log(error);
-        //   }
-        // }); // ajax END
-
-
-      }) // btn END
-
     });
 
   } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -163,6 +137,49 @@
     // 지도 중심좌표를 접속위치로 변경합니다
     map.setCenter(locPosition);
 
-  }    
+    kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+      // 클릭한 위도, 경도 정보를 가져옵니다 
+      var locPosition = mouseEvent.latLng;
+
+      // 마커 위치를 클릭한 위치로 옮깁니다
+      marker.setPosition(locPosition);
+
+
+
+      $("#btn-save").click(function () {
+
+        var input_report = document.getElementById("input_report").value;
+
+        console.log(locPosition);
+        $.ajax({
+          type: "POST",
+          url: "{% url 'report' %}",
+          data: { 'csrfmiddlewaretoken': '{{ csrf_token }}', 'input_report': input_report, 'lat': locPosition.Ha, 'lon': locPosition.Ga },
+          dataType: "text",
+          success: function (data) {
+            console.log('성공');
+            location.replace("{% url 'index' %}");
+          },
+          error: function (request, status, error) {
+            console.log('실패');
+            console.log(request);
+            console.log(error);
+          }
+        }); // ajax END
+
+
+      }) // btn END
+
+
+
+    });
+
+
+
+  }
+
+
+
 </script>
 {% endblock %}
