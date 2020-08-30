@@ -28,8 +28,13 @@
         <h1 class="h3 mb-3 font-weight-normal">COVID-19-REPORT</h1>
         <br>
         <div class="form-group">
-            <label for="text" class="sr-only">Id</label>
-            <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Id" required autofocus>
+            <label for="inputPassword" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="email" required>
+            <code class="d-flex justify-content-start my-2 ml-2">Email을 사용하여 비밀번호를 초기화 합니다.</code>
+        </div>
+        <div class="form-group">
+            <label for="text" class="sr-only">Login Id</label>
+            <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Login id" required autofocus>
         </div>
         <div class="form-group">
             <label for="inputPassword" class="sr-only">Password</label>
@@ -42,40 +47,33 @@
                 placeholder="Confirm Password" required>
         </div>
         <div class="form-group">
-            <label for="inputPassword" class="sr-only">Email</label>
-            <input type="email" id="email" name="email" class="form-control"
-                placeholder="email" required>
-        </div>
-        <div class="form-group">
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline d-flex justify-content-start">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="inlineCheckbox1" value="1">
                 <label class="form-check-label" for="inlineCheckbox1">
-                    <a href="javascript:doDisplay();">약관동의</a>
+                    <a href="javascript:doDisplay();">개인 정보 수집 동의</a>
                 </label>
             </div>
-            <div id="myDiv" style="display: none;">
-                <a>1번</a>
-                <a>2번</a>
-                <a>3번</a>
-                <a>4번</a>
+            <div class="d-flex justify-content-start">
+                <div id="myDiv" style="display: none;">
+                    <code>Email의 수집 이유는 비밀번호 초기화를 위해 사용합니다.</code>
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline d-flex justify-content-start">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="inlineCheckbox2" value="1">
                 <label class="form-check-label" for="inlineCheckbox1">
-                    <a href="javascript:doDisplay2();">개인정보수집</a>
+                    <a href="javascript:doDisplay2();">위치 정보 수집 동의</a>
                 </label>
             </div>
-            <div id="myDiv2" style="display: none;">
-                <a>1번</a>
-                <a>2번</a>
-                <a>3번</a>
-                <a>4번</a>
+            <div class="d-flex justify-content-start">
+                <div id="myDiv2" style="display: none;">
+                    <code>web 브라우저의 위치를 받아 이용자의 동선을 저장하기 위해 사용합니다.</code>
+                </div>
             </div>
         </div>
         <br>
-        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="submit">Sign up</button>
+        <button class="btn btn-lg btn-secondary btn-block" id="btn-click" type="submit" onclick="javascript_onclikc()">Sign up</button>
         <hr>
         <a class="btn btn-lg btn-secondary btn-block" href="{% url 'signin' %}">Back</a>
         <p class="mt-5 mb-3 text-muted font-weight-lighter">&copy; 2020. <a
@@ -101,6 +99,17 @@
             con.style.display = 'block';
         }
     }
+
+    function javascript_onclikc() {
+        if (document.getElementById("inlineCheckbox1").checked == false) {
+            alert('개인 정보 수집 동의에 체크해 주세요.');
+            return false;
+        } else if (document.getElementById("inlineCheckbox2").checked == false) {
+            alert('위치 정보 수집 동의에 체크해 주세요.');
+            return false;
+        }
+    }
+
 </script>
 
 {% endblock %}

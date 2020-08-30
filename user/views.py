@@ -47,6 +47,9 @@ def signup(request):
         password2 = request.POST['password2']
         email = request.POST['email']
 
+        print("inlineCheckbox1 :",request.POST.getlist('inlineCheckbox1'))
+        print("inlineCheckbox2 :",request.POST.getlist('inlineCheckbox2'))
+
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request, '이미 존재하는 회원입니다.')
