@@ -26,31 +26,33 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-################ LOCAL ################
-# secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-# with open(secret_file) as f:
-#     secrets = json.loads(f.read())
+if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True :
+    ################ LOCAL ################
+    secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-# def get_secret(setting, secrets=secrets):
-#     try:
-#         return secrets[setting]
-#     except KeyError:
-#         error_msg = "Set the {} environment variable".format(setting)
-#         raise ImproperlyConfigured(error_msg)
+    with open(secret_file) as f:
+        secrets = json.loads(f.read())
 
-# SECRET_KEY = get_secret("SECRET_KEY")
-# API_KEY = get_secret("API_KEY")
-# EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
-# EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
-# DEFAULT_FROM_EMAIL = get_secret("EMAIL_HOST_USER")
+    def get_secret(setting, secrets=secrets):
+        try:
+            return secrets[setting]
+        except KeyError:
+            error_msg = "Set the {} environment variable".format(setting)
+            raise ImproperlyConfigured(error_msg)
 
-################ HEROKU ################
-SECRET_KEY = os.environ.get('SECRET_KEY')
-API_KEY = os.environ.get('API_KEY')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+    SECRET_KEY = get_secret("SECRET_KEY")
+    API_KEY = get_secret("API_KEY")
+    EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+    DEFAULT_FROM_EMAIL = get_secret("EMAIL_HOST_USER")
+else :
+    ################ HEROKU ################
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    API_KEY = os.environ.get('API_KEY')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
