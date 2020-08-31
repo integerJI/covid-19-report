@@ -26,7 +26,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
 if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True :
     ################ LOCAL ################
     secret_file = os.path.join(BASE_DIR, 'secrets.json')
