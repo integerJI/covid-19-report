@@ -26,6 +26,12 @@ def index(request):
 
 def list(request):
     report = Report.objects.filter(input_user=request.user).order_by('-input_date','-id')
+
+    today = DateFormat(datetime.now()).format('Y-m-d')
+    report_pag = Report.objects.filter(input_user=request.user,input_date=today).order_by('-input_date','-id')
+
+    print(report_pag)
+
     return render(request, 'list.html', {'report':report })
 
 @login_required
